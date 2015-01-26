@@ -27,25 +27,21 @@ function loadData() {
     $body.append('<img class="bgimg" src="' + streetviewURL + '">');
 
     // NYTimes articles
-    //$.getJSON( "http://api.nytimes.com/svc/search/v2/articlesearch.response-format?[q=search term&fq=filter-field:(filter-term)&additional-params=values]&api-key=fd8cba38a91faa288299d44cf74d63de:14:71019947", function( data ) {
-      $.getJSON( "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=new+york+times&page=2&sort=oldest&api-key=fd8cba38a91faa288299d44cf74d63de:14:71019947
+    
+    var nytimesurl = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + city + "&page=2&sort=oldest&api-key=" + NYTAPIkey + "";
+    $.getJSON( nytimesurl, function( data ) {
 
-        ", function( data ) {
-      
+      $nytHeaderElem.text("New York Times Articles About" + city);
 
-      var items = [];
-      $.each( data, function( key, val ) {
-        items.push( "<li id='" + key + "'>" + val + "</li>" );
-    });
+      articles = data.response.doc;
 
-      $( "<ul/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-    }).appendTo( "body" );
-  })
+      for (var i = 0; i < articles.length; i++){
+        var article = articles[i];
+        $nytElem.append('<li class="article">' + '<a href="'+article.web_url+'">'+article.eadline.main+'</a>'+'<p>' + article.snippet + '</p>' + '</li>');
+    }
 
     return false;
-};
+}
 
 $('#form-container').submit(loadData);
 
