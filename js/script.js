@@ -28,17 +28,19 @@ function loadData() {
 
     // NYTimes articles
     
-    var nytimesurl = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + city + "&page=2&sort=oldest&api-key=" + NYTAPIkey + "";
-    $.getJSON( nytimesurl, function( data ) {
+    var nytimesurl = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + city + "&page=2&sort=oldest&api-key=fd8cba38a91faa288299d44cf74d63de:14:71019947";
 
-      $nytHeaderElem.text("New York Times Articles About" + city);
+    $.getJSON( nytimesurl , function( data ) {
 
-      articles = data.response.doc;
+        $nytHeaderElem.text("New York Times Articles About" + city);
 
-      for (var i = 0; i < articles.length; i++){
-        var article = articles[i];
-        $nytElem.append('<li class="article">' + '<a href="'+article.web_url+'">'+article.eadline.main+'</a>'+'<p>' + article.snippet + '</p>' + '</li>');
-    }
+        articles = data.response.doc;
+
+        for (var i = 0; i < articles.length; i++){
+            var article = articles[i];
+            $nytElem.append('<li class="article">' + '<a href="'+article.web_url+'">'+article.eadline.main+'</a>'+'<p>' + article.snippet + '</p>' + '</li>');
+        }
+    });
 
     return false;
 }
