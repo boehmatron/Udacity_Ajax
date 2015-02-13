@@ -51,7 +51,7 @@ function loadData() {
 
     $.ajax({
         url: wikiURL,
-        dataType: "jasonp",
+        dataType: "jsonp",
         success: function(response){
             
             var articleList = response[1];
